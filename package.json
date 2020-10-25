@@ -1,0 +1,26 @@
+{
+  "name": "socialApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaurav123337/socialApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaurav123337/socialApp/issues"
+  },
+  "homepage": "https://github.com/gaurav123337/socialApp#readme",
+  "dependencies": {
+    "@playlyfe/gql": "^2.6.2",
+    "apollo-server": "^2.18.2",
+    "graphql": "^15.3.0",
+    "mongoose": "^5.10.10"
+  }
+}
