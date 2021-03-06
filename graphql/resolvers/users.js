@@ -46,7 +46,9 @@ module.exports = {
         throw new UserInputError('Error', {errors});
       }
       // no previous user
-      const user = User.findOne({username});
+      const user =await User.findOne({username});
+      console.log(username, 'username')
+      console.log(user, 'existing user');
       if(user){
         throw new UserInputError('Username is taken', {
           errors: {
