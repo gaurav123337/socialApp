@@ -5,9 +5,11 @@ const {SECRET_KEY} = require('../config');
 module.exports = (contex) => {
   // contex = { ...headers }
   const authHeader = contex.req.headers.authorization;
+
   if(authHeader) {
     // Bearer ...
-    const token = authHeader.split('Bearer')[1];
+    const token = authHeader.split('Bearer ')[1];
+
     if(token){
       try{
         const user = jwt.verify(token, SECRET_KEY);
@@ -20,4 +22,4 @@ module.exports = (contex) => {
   }
 
   throw new Error('Authorisation token must be provided');
-}
+};
