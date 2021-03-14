@@ -35,7 +35,7 @@ const Login = (props) => {
 
   return (
     <div className="form-container">
-      <Form onSubmit={onSubmit} noValidate className={loading && 'loading'}>
+      <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
       <h1>Login</h1>
       <Form.Input label='Username' placeholder='Username...' name='username' value={values.username}
       type="text"

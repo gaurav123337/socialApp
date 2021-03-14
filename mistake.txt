@@ -1,0 +1,1 @@
+In check-auth, there must be space 'authHeader.split('Bearer ')[1]'
