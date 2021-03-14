@@ -13,7 +13,7 @@ function PostCard({post : {id, body, createdAt, username, likeCount, commentCoun
     console.log('Comment on post')
   }
   return (
-<Card>
+<Card fluid>
       <Card.Content>
         <Image
           floated='right'
