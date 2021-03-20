@@ -48,8 +48,8 @@ module.exports = {
       })
       return post;
     },
-    async deletePost(_, { PostId }, context) {
-      console.log('deletePost');
+    async deletePost(_, { postId }, context) {
+      console.log('deletePost', postId);
       const user = checkAuth(context);
 
       try {
