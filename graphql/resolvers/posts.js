@@ -3,38 +3,38 @@ const Post = require('../../models/Post');
 const checkAuth = require('../../util/check-auth');
 
 module.exports = {
-  Query:{
-    async getPosts(){
+  Query: {
+    async getPosts() {
       console.log('getPosts');
       try {
-        const posts = await Post.find().sort({createdAt: -1});
+        const posts = await Post.find().sort({ createdAt: -1 });
         return posts;
-      } catch(err) {
+      } catch (err) {
         throw new Error(err);
       }
     },
-    async getPost(_, {postId}){
+    async getPost(_, { postId }) {
       console.log('getPost');
       try {
         const post = await Post.findById(postId);
-        if(post){
+        if (post) {
           return post;
         } else {
-          throw new Error ('Post not found');
+          throw new Error('Post not found');
         }
-      } catch(err) {
+      } catch (err) {
         throw new Error(err);
       }
     }
   },
   Mutation: {
-    async createPost(_, {body}, context){
+    async createPost(_, { body }, context) {
       const user = checkAuth(context);
       console.log('createPost');
-      if(body.trim() === '') {
+      if (body.trim() === '') {
         throw new Error('Post body must not be empty');
       }
-      const newPost= new Post({
+      const newPost = new Post({
         body,
         user: user.id,
         username: user.username,
@@ -43,54 +43,54 @@ module.exports = {
       console.log(newPost, 'newPost');
       const post = await newPost.save();
 
-      context.pubsub.publish('NEW_POST',{
+      context.pubsub.publish('NEW_POST', {
         newPost: post
       })
       return post;
     },
-    async deletePost(_, {PostId}, context){
+    async deletePost(_, { PostId }, context) {
       console.log('deletePost');
       const user = checkAuth(context);
 
-      try{
+      try {
         const post = await Post.findById(postId);
-        if(user.username = post.username){
+        if (user.username = post.username) {
           await post.delete();
           return 'Post deleted successfully';
-        }else {
+        } else {
           throw new AuthenticationError('Action not allowed');
         }
-      } catch(err){
+      } catch (err) {
         throw new Error(err);
       }
     },
-    async likePost(_, {postId}, context){
-      console.log('likePost');
-      const {username} = checkAuth(context);
-
+    async likePost(_, { postId }, context) {
+      const { username } = checkAuth(context);
       const post = await Post.findById(postId);
-      if(post){
-        if(post.likes.find(like => like.username === usrname)){
+      if (post) {
+        if (post.likes.find(like => like.username === username)) {
           // Post already likes, unlike it
-          post.likes = post.like.filter(like => like.username !== username);
+          post.likes = post.likes.filter(like => like.username !== username);
 
-        } else{
+        } else {
+          console.log(post, 'in db post like')
           // Not liked, like post
           post.likes.push({
             username,
             createdAt: new Date().toISOString()
-          })
+          });
+
         }
         await post.save();
         return post;
-      } else{
+      } else {
         throw new UserInputError('Post not found');
       }
     }
   },
   Subscription: {
     newPost: {
-      subscribe: (_, __, {pubsub}) => pubsub.asyncIterator('NEW_POST')
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator('NEW_POST')
     }
   }
 };
