@@ -3,7 +3,9 @@ import {Card, Icon, Label, Image, Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
 
-function PostCard({post : {id, body, createdAt, username, likeCount, commentCount, likes}}) {
+function PostCard({
+  post : {id, body, createdAt, username, likeCount, commentCount, likes}
+}) {
 
   function likePost(){
     console.log('Post like');
@@ -21,7 +23,9 @@ function PostCard({post : {id, body, createdAt, username, likeCount, commentCoun
           src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
         />
         <Card.Header>{username}</Card.Header>
-        <Card.Meta as={Link} to={`/posts/${id}`}>{createdAt}</Card.Meta>
+        <Card.Meta as={Link} to={`/posts/${id}`}>
+          {moment(createdAt).fromNow(true)}
+        </Card.Meta>
         <Card.Description>
           {body}
         </Card.Description>

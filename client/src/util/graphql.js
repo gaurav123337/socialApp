@@ -20,4 +20,4 @@ export const FETCH_POSTS_QUERY = gql`
       }
     }
   }
-`
+`;

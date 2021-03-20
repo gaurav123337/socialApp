@@ -2,7 +2,7 @@ import React, {useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 
-import { Grid } from 'semantic-ui-react';
+import { Grid,Transition } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
 import PostCard from '../components/PostCard';
 import PostForm from '../components/PostForm';
@@ -16,6 +16,7 @@ const Home = () => {
   if(!loading) {
     const { getPosts }  = data;
     posts = getPosts;
+    console.log(posts, 'posts', data.getPosts)
   }
 
   return (
@@ -33,13 +34,18 @@ const Home = () => {
           {loading ? (
             <h1>Loading ...</h1>
           ) : (
-              posts && posts.map(post => {
-                return (
-                  <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-                    <PostCard post={post}/>
-                  </Grid.Column>
-                )
-              })
+            <Transition.Group>
+              {
+                posts && posts.map(post => {
+                  return (
+                    <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
+                      <PostCard post={post}/>
+                    </Grid.Column>
+                  )
+                })
+              }
+            </Transition.Group>
+
           )}
         </Grid.Row>
     </Grid>

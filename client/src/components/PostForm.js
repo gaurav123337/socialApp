@@ -20,8 +20,9 @@ function PostForm(){
         query: FETCH_POSTS_QUERY
       });
       data.getPosts = [result.data.createPost, ...data.getPosts];
+      console.log(data.getPosts, 'gata', data);
       proxy.writeQuery({query: FETCH_POSTS_QUERY, data});
-      console.log(result);
+      console.log( data);
       values.body='';
     }
   });
@@ -31,6 +32,7 @@ function PostForm(){
   }
 
   return (
+    <>
     <Form onSubmit={onSubmit}>
       <h2>Create post :</h2>
       <Form.Field>
@@ -39,12 +41,23 @@ function PostForm(){
           name="body"
           onChange={onChange}
           value={values.body}
+          error ={error ? true : false}
         />
         <Button type="submit" color="teal">
           Submit
         </Button>
       </Form.Field>
     </Form>
+    {error && (
+      <div className="ui error message" style={{ marginBottom: 20}}>
+        <ul className="list">
+        <li>
+          {error.graphQLErrors[0].message}
+        </li>
+        </ul>
+      </div>
+    )}
+    </>
   );
 };
 
