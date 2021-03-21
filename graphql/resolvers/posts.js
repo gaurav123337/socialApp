@@ -14,15 +14,17 @@ module.exports = {
       }
     },
     async getPost(_, { postId }) {
-      console.log('getPost');
+      console.log('getPost', postId);
       try {
         const post = await Post.findById(postId);
+        console.log(post, 'post')
         if (post) {
           return post;
         } else {
           throw new Error('Post not found');
         }
       } catch (err) {
+        console.log(err, 'ree')
         throw new Error(err);
       }
     }

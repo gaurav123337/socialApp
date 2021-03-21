@@ -1,5 +1,6 @@
 import React, {useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+
 import PropTypes from 'prop-types';
 
 import { Grid,Transition } from 'semantic-ui-react';
@@ -16,7 +17,6 @@ const Home = () => {
   if(!loading) {
     const { getPosts }  = data;
     posts = getPosts;
-    console.log(posts, 'posts', data.getPosts)
   }
 
   return (
